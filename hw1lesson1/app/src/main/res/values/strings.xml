@@ -6,9 +6,14 @@
     <string name="nightmode">Ночной режим</string>
     <string name="writeCityName">Начните вводить название города..</string>
     <string name="moreInfo">Расширенная информация</string>
-    <string name="x2605_moscow">★ Moscow</string>
-    <string name="x2605_st_petersburg">★ St. Petersburg</string>
-    <string name="x2605_new_york">★ New York</string>
-    <string name="tt">+27</string>
+    <string name="x2605_moscow"> Москва</string>
+    <string name="x2605_st_petersburg"> Санкт-Петербург</string>
+    <string name="x2605_new_york"> Нью-Йорк</string>
+<!--    <string name="tt">+27</string>-->
+    <string name="changeCity_title">Выбор города</string>
+    <string name="shows_the_weather">Картинка показывает погоду визуально</string>
+    <string name="choose_city">Выберите город:</string>
+    <string name="x2605"> ★ </string>
+
 
 </resources>

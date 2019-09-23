@@ -1,10 +1,13 @@
-package com.myapplication.myweather;
+package com.myapplication.myweather_copy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "myLogs";
     private TextView temperature;
     private String tempString = "+27";
-
+    static final private int CHOOSE_CITY = 0;
+    public static boolean chkbx = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         temperature = findViewById(R.id.textView);
         temperature.setText(tempString);
+
+        if (chkbx){
+            ImageView iv =(ImageView) findViewById(R.id.imageView);
+            iv.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -76,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume");
         Toast.makeText(getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
@@ -83,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d(TAG, "onRestart");
         Toast.makeText(getApplicationContext(), "onRestart", Toast.LENGTH_SHORT).show();
+
+        if (chkbx){
+            ImageView iv=(ImageView) findViewById(R.id.imageView);
+            iv.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -95,4 +112,28 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
 
     }
+
+    public void onClickChangeCity(View view) {
+
+        Intent intentForResult = new Intent(MainActivity.this, ChangeCityActivity.class);
+        startActivityForResult(intentForResult, CHOOSE_CITY);
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        TextView currentCityTextView = findViewById(R.id.currentCity);
+        if (requestCode == CHOOSE_CITY){
+            if (resultCode == RESULT_OK){
+                String currentCityTop = data.getExtras().getString("put_city");
+                currentCityTextView.setText(currentCityTop);
+            }else {
+                currentCityTextView.setText("КВА-КВА");
+            }
+        }
+    }
+
+
 }
