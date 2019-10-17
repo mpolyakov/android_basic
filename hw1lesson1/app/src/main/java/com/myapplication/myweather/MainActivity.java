@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView temperature;
     private String tempString = "+27";
     static final private int CHOOSE_CITY = 0;
-    public static boolean chkbx = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
         temperature = findViewById(R.id.textView);
         temperature.setText(tempString);
 
-        if (chkbx){
-            ImageView iv =(ImageView) findViewById(R.id.imageView);
-            iv.setVisibility(View.VISIBLE);
-        }
+
     }
 
     @Override
@@ -95,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onRestart");
         Toast.makeText(getApplicationContext(), "onRestart", Toast.LENGTH_SHORT).show();
 
-        if (chkbx){
-            ImageView iv=(ImageView) findViewById(R.id.imageView);
-            iv.setVisibility(View.VISIBLE);
-        }
+//        if (chkbx){
+//            ImageView iv=(ImageView) findViewById(R.id.imageView);
+//            iv.setVisibility(View.VISIBLE);
+//        }
 
     }
 
@@ -134,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
 
 }

@@ -44,8 +44,8 @@ public class ChangeCityActivity extends Activity {
         finish();
     }
 
-    public void onClickCheckBox(View view) {
-        MainActivity.chkbx = true;
-
-    }
+//    public void onClickCheckBox(View view) {
+//        MainActivity.chkbx = true;
+//
+//    }
 }

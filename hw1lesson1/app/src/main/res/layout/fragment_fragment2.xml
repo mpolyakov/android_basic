@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.myapplication.myweather_copy.Fragment2">
+
+
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/cloudly"
+        android:layout_weight="1" />
+
+
+    <ImageView
+        android:id="@+id/imageViewThree"
+        android:layout_width="59dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:contentDescription="сайт gismeteo.ru"
+        android:padding="15dp"
+        android:src="@drawable/ie24" />
+
+
+</LinearLayout>
