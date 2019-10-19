@@ -5,16 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.myapplication.myweather_copy.Fragment2">
+    tools:context="com.myapplication.myweather_copy.Fragment1">
 
-
-
-    <ImageView
-        android:layout_marginTop="0dp"
-        android:id="@+id/imageView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:src="@drawable/sun240"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view"/>
 
 </LinearLayout>
