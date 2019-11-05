@@ -25,7 +25,6 @@
         android:layout_weight="0.5"
         android:onClick="onClickChangeCity"
         android:text="@string/currentCity"
-        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"/>
 
@@ -34,10 +33,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:text="@string/temperature"
         android:textColor="@color/colorPrimary"
-        android:textColorLink="@color/colorPrimary"
         android:textSize="36sp"
         android:layout_gravity="center_horizontal" />
 
@@ -68,7 +65,7 @@
         android:layout_width="59dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.7"
+        android:layout_weight="0.5"
         android:contentDescription="сайт gismeteo.ru"
         android:padding="15dp"
         android:src="@drawable/internet96" />

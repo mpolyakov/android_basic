@@ -31,7 +31,6 @@
             android:layout_weight="0.5"
             android:onClick="onClickChangeCity"
             android:text="@string/currentCity"
-            android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:layout_gravity="center_horizontal"/>
 
@@ -55,7 +54,7 @@
             android:name="com.myapplication.myweather_copy.Fragment2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.8"
             tools:layout="@layout/fragment_fragment2" />
 
 
@@ -76,7 +75,7 @@
         android:name="com.myapplication.myweather_copy.Fragment1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
+        android:layout_weight="0.5"
         tools:layout="@layout/fragment_fragment1"
         />
 

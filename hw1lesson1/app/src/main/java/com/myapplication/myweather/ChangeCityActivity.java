@@ -18,8 +18,16 @@ public class ChangeCityActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.change_city);
+        if (MainActivity.mSettings.contains(MainActivity.APP_PREFERENCES_IS_DARK_THEME)){
+            MainActivity.isDarkTheme = MainActivity.mSettings.getBoolean(MainActivity.APP_PREFERENCES_IS_DARK_THEME, false);
+        }
+        if (MainActivity.isDarkTheme) {
+            setTheme(R.style.AppDarkThem);
+        }
+        else {
+            setTheme(R.style.AppTheme);
+        }
+            setContentView(R.layout.change_city);
     }
 
     public void onClick_msk(View view) {
@@ -44,8 +52,4 @@ public class ChangeCityActivity extends Activity {
         finish();
     }
 
-//    public void onClickCheckBox(View view) {
-//        MainActivity.chkbx = true;
-//
-//    }
 }

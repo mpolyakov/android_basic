@@ -19,21 +19,6 @@ public class Fragment2 extends Fragment {
 //        return super.onCreateView(inflater, container, savedInstanceState);
         View rootView =
                 inflater.inflate(R.layout.fragment_fragment2, container, false);
-
-        ImageView imageViewBrow = rootView.findViewById(R.id.imageViewThree);
-
-        imageViewBrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = "https://gismeteo.ru";
-                Uri uri = Uri.parse(url);
-
-                Intent browser = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(browser);
-
-            }
-        });
-
         return rootView;
     }
 }

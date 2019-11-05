@@ -5,15 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -26,12 +32,31 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mDays = new ArrayList<>();
     private ArrayList<String> mForecTemperature = new ArrayList<>();
     private ArrayList<Integer> mImagesId = new ArrayList<Integer>();
+    private Snackbar mSnackbar;
+    public static final String NAME_APP_PREFERENCES = "mysettings";
+    public static final String APP_PREFERENCES_IS_DARK_THEME = "theme";
+    public static SharedPreferences mSettings;
+    public static boolean isDarkTheme = false;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSettings = getSharedPreferences(NAME_APP_PREFERENCES, Context.MODE_PRIVATE);       //Загружаем настройки
+        if (mSettings.contains(APP_PREFERENCES_IS_DARK_THEME)){                             //Сохраняем настройки
+            isDarkTheme = mSettings.getBoolean(APP_PREFERENCES_IS_DARK_THEME, true);     //Сохраняем настройки
+        }                                                                                   //Сохраняем настройки
+        if (isDarkTheme) {                                                                  //Сохраняем настройки
+            setTheme(R.style.AppDarkThem);                                                  //Применяем тёмную тему
+        }                                                                                   //Сохраняем настройки
+        else {                                                                              //Сохраняем настройки
+            setTheme(R.style.AppTheme);                                                     //Применяем светлую тему
+        }                                                                                   //Сохраняем настройки
+
         setContentView(R.layout.activity_main);
+
         String instanceState;
         if(savedInstanceState == null){
             Log.d(TAG, "Первый запуск!");
@@ -47,21 +72,25 @@ public class MainActivity extends AppCompatActivity {
 
         initFillingRecycleArrays();
 
-        ImageView imageViewBrow = findViewById(R.id.imageViewInternet);
-        imageViewBrow.setOnClickListener(new View.OnClickListener() {
+        ImageView imageViewBrowser = findViewById(R.id.imageViewInternet);
+        imageViewBrowser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://gismeteo.ru";
-                Uri uri = Uri.parse(url);
-
-                Intent browser = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(browser);
-
+                mSnackbar = Snackbar.make(view, "Вы хотите перейти на gismeteo.ru?", Snackbar.LENGTH_LONG).setAction("Да", snackbarOnClickListener);
+                mSnackbar.show();
             }
         });
-
-
     }
+
+    View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String url = "https://gismeteo.ru";
+            Uri uri = Uri.parse(url);
+            Intent browser = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(browser);
+        }
+    };
 
     @Override
     protected void onStart() {
@@ -138,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 String currentCityTop = data.getExtras().getString("put_city");
                 currentCityTextView.setText(currentCityTop);
             }else {
-                currentCityTextView.setText("КВА-КВА");
+                currentCityTextView.setText("Москва");
             }
         }
     }
@@ -185,7 +214,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    public void onAboutMenuClick(MenuItem item) {
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(intent);
+    }
+
+    public void onThemeMenuClick(MenuItem item) {
+        if (isDarkTheme) {
+            setTheme(R.style.AppTheme);
+            isDarkTheme = false;
+        }
+        else {
+            setTheme(R.style.AppDarkThem);
+            isDarkTheme = true;
+        }
+        SharedPreferences.Editor editor = mSettings.edit();                                         //Сохраняем настройки
+        editor.putBoolean(APP_PREFERENCES_IS_DARK_THEME, isDarkTheme);                              //Сохраняем настройки
+        editor.apply();                                                                             //Сохраняем настройки
+        recreate();                                                                                 //пересоздаём активити
+    }
 }
 
 

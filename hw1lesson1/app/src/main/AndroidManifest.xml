@@ -20,6 +20,12 @@
             android:label="@string/changeCity_title">
 
         </activity>
+
+        <activity android:name=".AboutActivity"
+            android:label="@string/about_text">
+
+        </activity>
+
     </application>
 
 </manifest>
