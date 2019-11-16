@@ -41,7 +41,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temperature"
+            android:text=" "
             android:textColor="@color/colorPrimary"
             android:textColorLink="@color/colorPrimary"
             android:textSize="36sp"

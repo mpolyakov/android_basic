@@ -2,7 +2,6 @@
     <string name="app_name">MyWeather</string>
     <string name="greeting">YourWeather</string>
     <string name="currentCity">Москва</string>
-    <string name="temperature">+24</string>
     <string name="nightmode">Ночной режим</string>
     <string name="writeCityName">Начните вводить название города..</string>
     <string name="moreInfo">Расширенная информация</string>
