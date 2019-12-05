@@ -1,6 +1,7 @@
 package com.myapplication.myweather_copy;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +11,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +23,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.myapplication.myweather_copy.model.WeatherRequest;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_IS_DARK_THEME = "theme";
     public static SharedPreferences mSettings;
     public static boolean isDarkTheme = false;
-
+    public static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=Moscow,RU&appid=bffab533dd87ce4285f3b672cfb5cf29";
+    public String tempCurrent = null;
 
 
     @Override
@@ -67,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(), instanceState, Toast.LENGTH_SHORT).show();
 
-        temperature = findViewById(R.id.textView);
-        temperature.setText(tempString);
+        gettingWeather();
 
-        initFillingRecycleArrays();
+
 
         ImageView imageViewBrowser = findViewById(R.id.imageViewInternet);
         imageViewBrowser.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +95,52 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void gettingWeather() {
+        try {
+            final URL uri = new URL(WEATHER_URL);
+            final Handler handler = new Handler();
+            new Thread(new Runnable() {
+
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                public void run() {
+                    HttpsURLConnection urlConnection = null;
+                    try {
+                        urlConnection = (HttpsURLConnection) uri.openConnection();
+                        urlConnection.setRequestMethod("GET");
+                        urlConnection.setReadTimeout(10000);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        String result = in.lines().collect(Collectors.joining("\n"));
+                        Gson gson = new Gson();
+                        final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                temperature = findViewById(R.id.textView);
+                                tempCurrent = String.format("%.0f " + "º" + "C", weatherRequest.getMain().getTemp());
+                                temperature.setText(tempCurrent);
+
+                                initFillingRecycleArrays();
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
     View.OnClickListener snackbarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             String url = "https://gismeteo.ru";
-            Uri uri = Uri.parse(url);
-            Intent browser = new Intent(Intent.ACTION_VIEW, uri);
+            Uri uriGismeteo = Uri.parse(url);
+            Intent browser = new Intent(Intent.ACTION_VIEW, uriGismeteo);
             startActivity(browser);
         }
     };
@@ -144,14 +197,14 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "onRestart", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected  void onRestoreInstanceState(@NonNull Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        tempString = savedInstanceState.getString("Temperature");
-        temperature.setText(tempString);
-        Log.d(TAG, "onRestoreInstanceState");
-        Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    protected  void onRestoreInstanceState(@NonNull Bundle savedInstanceState){
+//        super.onRestoreInstanceState(savedInstanceState);
+//        tempString = savedInstanceState.getString("Temperature");
+//        temperature.setText(tempString);
+//        Log.d(TAG, "onRestoreInstanceState");
+//        Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
+//    }
 
     public void onClickChangeCity(View view) {
         Intent intentForResult = new Intent(MainActivity.this, ChangeCityActivity.class);
@@ -181,13 +234,13 @@ public class MainActivity extends AppCompatActivity {
         mDays.add("СБ");
         mDays.add("ВС");
 
-        mForecTemperature.add("+18");
-        mForecTemperature.add("+19");
-        mForecTemperature.add("+20");
-        mForecTemperature.add("+21");
-        mForecTemperature.add("+22");
-        mForecTemperature.add("+23");
-        mForecTemperature.add("+24");
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
+        mForecTemperature.add(tempCurrent);
 
         mImagesId.add(R.drawable.sun240);
         mImagesId.add(R.drawable.snow192);

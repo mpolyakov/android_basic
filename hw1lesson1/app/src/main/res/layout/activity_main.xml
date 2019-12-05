@@ -1,63 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:visibility="visible"
+    android:orientation="vertical"
+    tools:context="com.myapplication.myweather_copy.MainActivity">
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:text="@string/greeting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/currentCity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:onClick="onClickChangeCity"
         android:text="@string/currentCity"
-        android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
-
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="332dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592"/>
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
+        android:layout_marginTop="0dp"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/temperature"
+        android:text=" "
         android:textColor="@color/colorPrimary"
-        android:textColorLink="@color/colorPrimary"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
+        android:layout_gravity="center_horizontal" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.myapplication.myweather_copy.Fragment2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_fragment2"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"/>
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.myapplication.myweather_copy.Fragment1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        tools:layout="@layout/fragment_fragment1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"/>
+
+
+    <ImageView
+        android:id="@+id/imageViewInternet"
+        android:layout_width="59dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.5"
+        android:contentDescription="сайт gismeteo.ru"
+        android:padding="15dp"
+        android:src="@drawable/internet96" />
+
+
+
+
+
+
+
+</LinearLayout>
