@@ -23,5 +23,7 @@
     <string name="settings_about">О разработчике</string>
     <string name="about_text">Программа <b> YourWeather</b> разработана <b>mipolyakov</b> 04-11-2019</string>
 
+    <string name="tempSens">Датчик температуры отсутствует</string>
+
 
 </resources>

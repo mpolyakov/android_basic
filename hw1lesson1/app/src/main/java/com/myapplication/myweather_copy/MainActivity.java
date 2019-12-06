@@ -93,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
                 mSnackbar.show();
             }
         });
+
+        ImageView imageViewSensors = findViewById(R.id.imageView);
+        imageViewSensors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentSensors = new Intent(MainActivity.this, SensorsActivity.class);
+                startActivity(intentSensors);
+            }
+        });
     }
 
     private void gettingWeather() {
